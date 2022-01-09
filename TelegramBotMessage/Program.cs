@@ -20,10 +20,22 @@ namespace TelegramBotMessage
                  */
 
             /*Orden de los Argumentos:
-                args[0] -> chatID (-345547283)
-                agrs[1] -> Token (1785746650:AAEhZGWi9EC4_oGxTJRHI9-XZEnYFO3dEpM)
-                args[2] -> Mensaje
+                agrs[0]     -> Token (1785746650:AAEhZGWi9EC4_oGxTJRHI9-XZEnYFO3dEpM)
+                args[1]     -> chatID (-345547283)
+                args[2..n]  -> Mensaje
              */
+
+            /*
+            Algunos emojis que pueden ser de interes: ✅ ❌
+            Para mas emojis: https://apps.timwhitlock.info/emoji/tables/unicode
+            */
+            /*
+                Se puede utilizar un argumento como status, es decir, 
+                    si el args contiene en el 3er 
+                    argumento un 'OK' se concatena un ✅ al principio del mensaje. ej:
+                        .\TelegramBotMessage.exe <token> <chatID> OK Los procesos etl han corrido satisfactoriamente 
+                            "✅ Los procesos etl han corrido satisfactoriamente"
+            */
 
             //Agregar estas dos lineas para evitar excepciones
             ServicePointManager.Expect100Continue = true;
@@ -33,6 +45,7 @@ namespace TelegramBotMessage
             {
                 string token = args[0]; // "1785746650:AAEhZGWi9EC4_oGxTJRHI9-XZEnYFO3dEpM";
                 string chatID = args[1]; //"-345547283";
+                string status = args[2];
                 string mensaje = "";// = args[2];
 
                 /*
@@ -44,15 +57,10 @@ namespace TelegramBotMessage
                     mensaje += " ";
                 }
 
-                string urlString = $"https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chatID + "&text=" + mensaje;
+                string urlString = $"https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chatID + "&text=" + mensaje ;
                 WebClient webCliente = new WebClient();
 
                 string a = webCliente.DownloadString(urlString);
-                /*Console.WriteLine("El request ejecutado fue: "+urlString);
-                Console.WriteLine();
-                Console.WriteLine("El response de la peticion fue: " + a );
-                Console.WriteLine();*/
-                //Console.ReadLine();
             }
         }
     }
